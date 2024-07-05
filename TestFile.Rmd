@@ -1,0 +1,24 @@
+---
+title: "TestFile"
+author: "Jacob"
+date: "2024-07-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(baseballr)
+library(dplyr)
+```
+
+```{r}
+a <- mlb_schedule(season = 2023, level_ids = "1") %>% 
+  filter(series_description != "Spring Training" & series_description != "Exhibition" & teams_home_team_name == "Seattle Mariners") %>%
+  select(date, teams_home_team_name, game_pk)
+```
+
+```{r}
+mlb_pbp(718767) %>% 
+  filter(type == "pitch") %>% 
+  select(startTime, pitchNumber, details.description, details.call.description, pitchData.coordinates.y, pitchData.coordinates.x, hitData.trajectory, hitData.hardness, hitData.location, hitData.coordinates.coordX, hitData.coordinates.coordY, atBatIndex, result.event, result.eventType, result.description)
+```
